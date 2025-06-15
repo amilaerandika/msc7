@@ -10,14 +10,14 @@ pipeline {
     }
     stage('Test') {
       steps {
-        sh 'docker run sample'
+        bat 'docker run sample'
       }
     }
     stage('Deploy') {
       steps {
         withCredentials([usernamePassword(credentialsId: "${DOCKER_REGISTRY_CREDS}", passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
-          sh "echo \$DOCKER_PASSWORD | docker login -u \$DOCKER_USERNAME --password-stdin docker.io"
-          sh 'docker push %DOCKER_BFLASK_IMAGE%'
+          bat "echo \$DOCKER_PASSWORD | docker login -u \$DOCKER_USERNAME --password-stdin docker.io"
+          bat 'docker push %DOCKER_BFLASK_IMAGE%'
         }
       }
     }
