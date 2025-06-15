@@ -5,7 +5,7 @@ pipeline {
     stage('Build') {
       steps {
         bat 'docker build -t myjava1 .'
-        bat  'docker tag myjava1 $DOCKER_BFLASK_IMAGE'
+        bat  'docker tag myjava1 %DOCKER_BFLASK_IMAGE%'
       }
     }
     stage('Test') {
@@ -17,7 +17,7 @@ pipeline {
       steps {
         withCredentials([usernamePassword(credentialsId: "${DOCKER_REGISTRY_CREDS}", passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
           sh "echo \$DOCKER_PASSWORD | docker login -u \$DOCKER_USERNAME --password-stdin docker.io"
-          sh 'docker push $DOCKER_BFLASK_IMAGE'
+          sh 'docker push %DOCKER_BFLASK_IMAGE%'
         }
       }
     }
