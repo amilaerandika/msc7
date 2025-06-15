@@ -1,4 +1,21 @@
 5DZXdm  
+
+pipeline{    agent any    environment{        
+dockerImage =''        registry = 'kasunkosala/myimage1'            }    
+stages{        stage('gitpull')        {            steps{                
+checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs:
+[[url: 'https://github.com/kasunkosala/devops-cicd.git/']])            }        }       
+stage('build docker image'){            steps{                
+script{                    dockerImage =  bat "docker build -t %registry% ."               }            }        }            }}
+
+
+
+
+
+
+
+
+
 sample.java
 =========
 public class sample
