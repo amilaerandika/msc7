@@ -4,13 +4,13 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        bat 'docker build -t sample .'
+        bat 'docker build -t myjava1 .'
         bat  'docker tag myjava1 %DOCKER_BFLASK_IMAGE%'
       }
     }
     stage('Test') {
       steps {
-        sh 'docker run sample'
+        sh 'docker run myjava1'
       }
     }
     stage('Deploy') {
